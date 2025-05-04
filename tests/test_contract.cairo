@@ -1,11 +1,7 @@
+use p2pnetcontract::IHelloStarknetSafeDispatcher;
+use snforge_std::{ContractClassTrait, DeclareResultTrait, declare};
 use starknet::ContractAddress;
 
-use snforge_std::{declare, ContractClassTrait, DeclareResultTrait};
-
-use p2pnetcontract::IHelloStarknetSafeDispatcher;
-use p2pnetcontract::IHelloStarknetSafeDispatcherTrait;
-use p2pnetcontract::IHelloStarknetDispatcher;
-use p2pnetcontract::IHelloStarknetDispatcherTrait;
 
 fn deploy_contract(name: ByteArray) -> ContractAddress {
     let contract = declare(name).unwrap().contract_class();
@@ -42,6 +38,6 @@ fn test_cannot_increase_balance_with_zero_value() {
         Result::Ok(_) => core::panic_with_felt252('Should have panicked'),
         Result::Err(panic_data) => {
             assert(*panic_data.at(0) == 'Amount cannot be 0', *panic_data.at(0));
-        }
+        },
     };
 }
